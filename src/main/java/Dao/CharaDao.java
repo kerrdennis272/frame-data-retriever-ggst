@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CharaDao {
 
-    public List<Chara> getAllCharacters();
-    public Chara getCharacter();
+    public List<String> getAllCharacters();
+    public Chara getCharacterByName(String name);
 }
