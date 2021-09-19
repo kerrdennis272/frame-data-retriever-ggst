@@ -16,6 +16,22 @@ public class CharacterMove {
         this.moveId = moveId;
     }
 
+    public int getCharacterId() {
+        return characterId;
+    }
+
+    public void setCharacterId(int characterId) {
+        this.characterId = characterId;
+    }
+
+    public int getMoveID() {
+        return moveId;
+    }
+
+    public void setMoveId(int moveId) {
+        this.moveId = moveId;
+    }
+
     public int getCharacterMoveId() {
         return characterMoveId;
     }

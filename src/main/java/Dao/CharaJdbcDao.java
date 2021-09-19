@@ -1,7 +1,6 @@
 package Dao;
 
 import Model.Chara;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -19,7 +18,6 @@ public class CharaJdbcDao implements CharaDao {
     @Override
     public List<String> getAllCharacters() {
         List<String> characterList = new ArrayList<>();
-        Chara character = new Chara();
         String sqlStr = "SELECT * FROM character";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlStr);
         while (results.next()) {
