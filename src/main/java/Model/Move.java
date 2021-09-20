@@ -35,4 +35,9 @@ public class Move {
     public void setMoveName(String moveName) {
         this.moveName = moveName;
     }
+
+    @Override
+    public String toString() {
+        return moveName + ": " + moveInput;
+    }
 }

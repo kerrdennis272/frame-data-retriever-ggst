@@ -8,10 +8,10 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharaJdbcDao implements CharaDao {
+public class JdbcCharaDao implements CharaDao {
     private JdbcTemplate jdbcTemplate;
 
-    public CharaJdbcDao(DataSource dataSource) {
+    public JdbcCharaDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -37,7 +37,7 @@ public class CharaJdbcDao implements CharaDao {
         return character;
     }
 
-    public Chara mapRowToChara(SqlRowSet results) {
+    private Chara mapRowToChara(SqlRowSet results) {
         Chara chara = new Chara();
         chara.setCharacterId(results.getInt("character_id"));
         chara.setCharacterName(results.getString("character_name"));

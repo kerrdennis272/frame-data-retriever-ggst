@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CharacterMoveDao {
 
-    public List<CharacterMove> getAllCharacterMovesForCharacter(Chara character);
+    public List<CharacterMove> getAllCharacterMovesForCharacter(String characterName);
     public CharacterMove getCharacterMove(Chara character, Move move);
 }

@@ -6,14 +6,36 @@ public class CharacterMove {
     private int characterId;
     private String startupFrames;
     private String blockFrames;
+    private String moveName;
+    private String moveInput;
 
-    public CharacterMove() {}
+    public String getMoveName() {
+        return moveName;
+    }
 
-    public CharacterMove(int moveId, int characterId,String startupFrames, String blockFrames) {
+    public void setMoveName(String moveName) {
+        this.moveName = moveName;
+    }
+
+    public String getMoveInput() {
+        return moveInput;
+    }
+
+    public void setMoveInput(String moveInput) {
+        this.moveInput = moveInput;
+    }
+
+    public CharacterMove() {
+    }
+
+    public CharacterMove(int moveId, int characterId, String startupFrames, String blockFrames, String moveName,
+            String moveInput) {
         this.startupFrames = startupFrames;
         this.blockFrames = blockFrames;
         this.characterId = characterId;
         this.moveId = moveId;
+        this.moveInput = moveInput;
+        this.moveName = moveName;
     }
 
     public int getCharacterId() {
@@ -50,6 +72,11 @@ public class CharacterMove {
 
     public String getBlockFrames() {
         return blockFrames;
+    }
+
+    @Override
+    public String toString() {
+        return moveName + ": " + moveInput + "\nStartup: " + startupFrames + "\nOn Block: " + blockFrames;
     }
 
     public void setBlockFrames(String blockFrames) {
