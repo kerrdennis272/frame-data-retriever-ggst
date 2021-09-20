@@ -1,11 +1,19 @@
-CREATE TABLE IF NOT EXISTS character (
+BEGIN TRANSACTION;
+
+DROP TABLE IF EXISTS character;
+DROP TABLE IF EXISTS moves;
+DROP TABLE IF EXISTS character_move;
+
+
+
+CREATE TABLE character (
     character_id serial NOT NULL,
     character_name varchar(60) NOT NULL,
     
     CONSTRAINT pk_character PRIMARY KEY (character_id)
 );
 
-CREATE TABLE IF NOT EXISTS moves (
+CREATE TABLE moves (
    move_id serial NOT NULL,
    move_input varchar(20) NOT NULL,
    move_name varchar (60) NOT NULL,
@@ -13,7 +21,7 @@ CREATE TABLE IF NOT EXISTS moves (
    CONSTRAINT pk_move PRIMARY KEY (move_id)
 );
 
-CREATE TABLE IF NOT EXISTS character_move (
+CREATE TABLE character_move (
    character_move_id serial NOT NULL,
    move_id int NOT NULL,
    character_id int NOT NULL,
@@ -184,6 +192,8 @@ INSERT INTO moves (move_input, move_name)
    VALUES('236P', 'Alpha Blade Horizontal');
 INSERT INTO moves (move_input, move_name)
    VALUES('236K', 'Alpha Blade Diagonal');
+INSERT INTO moves (move_input, move_name)
+   VALUES('j.236K', 'Aerial Alpha Blade Diagonal');
 INSERT INTO moves (move_input, move_name)
    VALUES('623S', 'Beta Blade');
 INSERT INTO moves (move_input, move_name)
@@ -391,7 +401,7 @@ INSERT INTO moves (move_input, move_name)
 INSERT INTO moves (move_input, move_name)
    VALUES('bt.22', 'Cancel');
 INSERT INTO moves (move_input, move_name)
-   VALUES('bt.632146S', 'Stalwirbel');
+   VALUES('bt.632146S', 'Stahlwirbel');
 INSERT INTO moves (move_input, move_name)
    VALUES('632146H', 'Leidenschaft des Dirigenten');
 INSERT INTO moves (move_input, move_name)
@@ -813,9 +823,6 @@ INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Alpha Blade Diagonal'),
            (SELECT character_id FROM character WHERE character_name ILIKE 'Chipp%'), '24', '-2');
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_name = 'Aerial Alpha Blade Diagonal'),
-           (SELECT character_id FROM character WHERE character_name ILIKE 'Chipp%'), '37', '-7');
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Beta Blade'),
            (SELECT character_id FROM character WHERE character_name ILIKE 'Chipp%'), '7', '-27');
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
@@ -845,9 +852,6 @@ INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Banki Messai'),
            (SELECT character_id FROM character WHERE character_name ILIKE 'Chipp%'), '6+1', '-20');  
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_name = 'Aerial Zansei Rouga'),
-           (SELECT character_id FROM character WHERE character_name ILIKE 'Chipp%'), '13+1', null);
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = '5P'),
            (SELECT character_id FROM character WHERE character_name = 'Faust'), '6', '-2');
@@ -1425,9 +1429,6 @@ INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Summon Eddie'),
            (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '36', null);
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_name = 'Unsummon Eddie'),
-           (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '32', null);
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = '\"Pierce\"' AND move_input = '236P'),
            (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '21', '+30');
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
@@ -1437,20 +1438,11 @@ INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_input = ']K['),
            (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '19', null);
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_id = 792),
-           (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '27', '+55');
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_input = ']S['),
            (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '13', null);
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_id = 794),
-           (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '21', '+46');
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_input = ']H['),
            (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '66', null);
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_id = 796),
-           (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '74', null);
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Invite Hell'),
            (SELECT character_id FROM character WHERE character_name = 'Zato-1'), '18', '-7');
@@ -1660,10 +1652,7 @@ INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
            (SELECT character_id FROM character WHERE character_name = 'I-No'), '11+0(41)', '(-18)');
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Ultimate Fortissimo'), 
-           (SELECT character_id FROM character WHERE character_name = 'I-No'), '6+2', '+26');        
-INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
-   VALUES ((SELECT move_id FROM moves WHERE move_name = 'Aerial Ultimate Fortissimo'), 
-           (SELECT character_id FROM character WHERE character_name = 'I-No'), '5+3', '+37');     
+           (SELECT character_id FROM character WHERE character_name = 'I-No'), '6+2', '+26');             
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = '5P'), 
            (SELECT character_id FROM character WHERE character_name ILIKE 'Leo%'), '5', '-1');
@@ -2224,4 +2213,6 @@ INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
            (SELECT character_id FROM character WHERE character_name ILIKE 'Nago%'), '7+173+2', '-30');
 INSERT INTO character_move (move_id, character_id, startup_frames, block_frames)
    VALUES ((SELECT move_id FROM moves WHERE move_name = 'Zansetsu'),
-           (SELECT character_id FROM character WHERE character_name ILIKE 'Nago%'), '11+58+10', '-66');                                                                                                        
+           (SELECT character_id FROM character WHERE character_name ILIKE 'Nago%'), '11+58+10', '-66');          
+
+COMMIT TRANSACTION;                                                                                              

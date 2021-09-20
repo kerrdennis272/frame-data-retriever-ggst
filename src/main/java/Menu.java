@@ -17,16 +17,19 @@ public class Menu {
     }
     public String getCharacterChoiceFromUser(List<String> options) {
         displayMenuOptions(options);
-        System.out.println("Please Select a character by the option number: ");
+        System.out.println("Please Select a character by the option number (0 to exit): ");
         String userInput = scanner.nextLine();
         String choice  = null;
         try {
             int selectedCharacter = Integer.valueOf(userInput);
-            if (selectedCharacter <= options.size()) {
-                choice = options.get(selectedCharacter - 1);
+            if (selectedCharacter == 0) {
+                return "0";
             }
+            choice = options.get(selectedCharacter - 1);
         } catch (NumberFormatException e) {
-            System.out.println("**Please input the number corresponding to the character**");
+            System.out.println("\n\n**Please input the number corresponding to the character**\n\n");
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("\n\n**Please input the number corresponding to the character**\n\n");
         }
         return choice;
     }
@@ -36,11 +39,14 @@ public class Menu {
         String choice  = null;
         try {
             int selectedOption = Integer.valueOf(userInput);
-            if (selectedOption <= options.size()) {
-                choice = options.get(selectedOption - 1);
+            if (selectedOption == 0) {
+                return "0";
             }
+            choice = options.get(selectedOption - 1);
         } catch (NumberFormatException e) {
-            System.out.println("**Please input the number corresponding to the option**");
+            System.out.println("\n\n**Please input the number corresponding to the option**\n\n");
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("\n\n**Please input the number corresponding to the option**\n\n");
         }
         return choice;
     }

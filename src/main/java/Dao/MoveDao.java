@@ -8,5 +8,5 @@ public interface MoveDao {
 
     public List<Move> getAllMoves();
 
-    public Move getMove();
+    public Move getMove(String moveName);
 }
